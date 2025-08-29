@@ -19,8 +19,6 @@ from pymoo.util.ref_dirs import get_reference_directions
 from pymoo.algorithms.moo.moead import MOEAD
 from pymoo.decomposition.tchebicheff import Tchebicheff
 
-# In[2]:
-
 # Se cargan los ficheros de espacios verdes existentes y candidatos, además de el
 # de distritos y se precalculan algunas variables
 gdf_zonas_verdes = gpd.read_file("espacios_verdes_final_geo.geojson")
