@@ -19,9 +19,9 @@ from pymoo.decomposition.tchebicheff import Tchebicheff
 
 # Se cargan los ficheros de espacios verdes existentes y candidatos, además de el
 # de distritos y se precalculan algunas variables
-gdf_zonas_verdes = gpd.read_file("espacios_verdes_final_geo.geojson")
-gdf_candidatos = gpd.read_file("localizaciones_final.geojson")
-gdf_distritos = gpd.read_file("distritos_final.geojson")
+gdf_zonas_verdes = gpd.read_file("espacios_existentes_final_geo.geojson")
+gdf_candidatos = gpd.read_file("candidatos_final.geojson")
+gdf_distritos = gpd.read_file("fichero_existentes_final.geojson")
 poblacion_total_total = gdf_distritos["poblacion_total"].sum()
 
 def coeficiente_variacion_ponderado(x, pesos):
