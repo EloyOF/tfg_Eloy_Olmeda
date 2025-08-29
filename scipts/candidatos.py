@@ -8,7 +8,7 @@ import pandas as pd
 # SOLARES
 # Se carga el fichero, se excluyen las pedanías y se mantienen aquellos solares con un
 # área de mínimo 150 metros cuadrados
-solares = gpd.read_file("solares_valencia_geo.geojson")
+solares = gpd.read_file("solares.geojson")
 excluir = ["POBLATS DEL NORD", "POBLATS DEL SUD", "POBLATS DE L'OEST", "POBLATS OEST"]
 gdf_solares = solares[~solares["nomdistrit"].isin(excluir)]
 gdf_solares = gdf_solares[gdf_solares["st_area_shape"] >= 150]
@@ -16,7 +16,7 @@ gdf_solares = gdf_solares[gdf_solares["st_area_shape"] >= 150]
 # PLANIFICACIÓN ESPACIOS VERDES
 # Se carga el fichero de espacios verdes planificados y original 
 planificados = gpd.read_file("planificacion_zonas_verdes.geojson").to_crs(epsg=25830)
-gdf_existentes = gpd.read_file("espacios_verdes_final_geo.geojson").to_crs(epsg=25830)
+gdf_existentes = gpd.read_file("espacios_existentes_final_geo.geojson").to_crs(epsg=25830)
 
 # Se eliminan los espacios verdes de tipo red viaria y se mantienen aquellos de más 
 # de una hectárea
@@ -45,7 +45,7 @@ brownfield['area_m2'] = brownfield.geometry.area
 
 # Se excluyen todos aquellos terrenos fuera del área metropolitana de Valencia y
 # menores de 150 metros cuadrados
-distritos = gpd.read_file("distritos_final.geojson") 
+distritos = gpd.read_file("distritos_filtrado.geojson") 
 valencia_area = distritos.unary_union
 brownfields_recortados = brownfield.clip(valencia_area)
 brownfields_recortados = brownfields_recortados[brownfields_recortados["area_m2"] > 150] 
