@@ -66,7 +66,6 @@ gdf_cubiertas = cubiertas.rename(columns={"superficie": "area"})
 
 # A la columna creada se le calcula para cada fila el área en metros cuadrado
 gdf_cubiertas["area"] = gdf_cubiertas.geometry.area
-gdf_cubiertas.to_file("cubiertas_verdes.geojson", driver="GeoJSON")
 gdf_cubiertas["tipo"] = "cubierta verde"
 
 # Se les añade también a cada cubierta su distrito de pertenencia
