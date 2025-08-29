@@ -10,7 +10,7 @@ import openrouteservice as ors
 from shapely.geometry import shape, mapping
 import ast
 # Se lee el fichero de datos con los espacios verdes originales
-gdf = gpd.read_file("zonas_verdes_geo.geojson")
+gdf = gpd.read_file("espacios_verdes_existentes.geojson")
 
 # Se renombran sus columnas para mayor comodidad
 gdf.columns = ["id", "id_jardin", "nombre", "barrio", "tipo", "area",
@@ -62,8 +62,8 @@ datos_filtrado = gdf[(gdf["tipo"] != "Acompañamiento Viario")]
 datos_filtrado = datos_filtrado[datos_filtrado["area"] >= 10000]
 
 # Se guarda el fichero resultante de lo anterior y se carga
-gdf.to_file("espacios_verdes_final_geo.geojson", driver="GeoJSON")
-gdf_zonas_verdes = gpd.read_file("espacios_verdes_final_geo.geojson")
+gdf.to_file("espacios_verdes_existentes_final_geo.geojson", driver="GeoJSON")
+gdf_zonas_verdes = gpd.read_file("espacios_verdes_existentes_final_geo.geojson")
 
 # Se carga el fichero de los distritos de Valencia, donde se excluyen las pedanías
 # También se guarda
@@ -77,7 +77,7 @@ gdf_distritos.to_file("distritos_filtrado.geojson", driver="GeoJSON")
 # Se unifican todas los polígonos de los distritos en uno solo y se guarda
 area_valencia = unary_union(gdf_distritos.geometry)
 area_valencia = gpd.GeoDataFrame(geometry=[area_valencia], crs="EPSG:4326")
-area_valencia.to_file("metropolis_valencia.geojson", driver="GeoJSON")
+area_valencia.to_file("area_valencia.geojson", driver="GeoJSON")
 
 # API de OpenRouteService
 client = ors.Client(key='5b3ce3597851110001cf62482f481ac876494fd88581390976ae7b39')
@@ -196,4 +196,4 @@ gdf_distritos["%_zona_verde"] = (gdf_distritos["area_zona_verde_m2"]/
 
 # Se guarda el fichero final, qu ees el fichero con la información (por distrito)
 # de los espacios verdes existentes y que se usará en el modelo
-gdf_distritos.to_file("distritos_final.geojson", driver="GeoJSON")
+gdf_distritos.to_file("fichero_existentes_final.geojson", driver="GeoJSON")
