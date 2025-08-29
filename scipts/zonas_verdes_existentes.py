@@ -7,7 +7,7 @@ from rasterio.mask import mask
 import numpy as np
 import geopandas as gpd
 import openrouteservice as ors
-from shapely.geometry import shape, Point, Polygon, mapping
+from shapely.geometry import shape, mapping
 import ast
 # Se lee el fichero de datos con los espacios verdes originales
 gdf = gpd.read_file("zonas_verdes_geo.geojson")
