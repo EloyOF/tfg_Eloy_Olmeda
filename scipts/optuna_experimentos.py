@@ -125,7 +125,7 @@ class MyProblem(Problem):
         out["F"] = np.array(resultados)
 
 # NSGA-II
-def objective(trial):
+def objective_nsga2(trial):
     """
     Función objetivo para Optuna que entrena NSGA-II con un conjunto de hiperparámetros
     propuestos y devuelve el hipervolumen medio obtenido en cinco instancias de prueba.
@@ -211,10 +211,14 @@ study = optuna.create_study(
     load_if_exists=True)
 
 # Ejecución de Optuna en NSGA-II
-study.optimize(objective, n_trials=100, n_jobs=4) # 100
+study.optimize(objective_nsga2, n_trials=100, n_jobs=4) # 100
 
 # NSGA-III
-def objective(trial):
+def objective_nsga3(trial):
+    """
+    Función objetivo para Optuna que entrena NSGA-III con un conjunto de hiperparámetros
+    propuestos y devuelve el hipervolumen medio obtenido en cinco instancias de prueba.
+    """
     # Hiperparámetros elegidos
     n_partitions = trial.suggest_categorical("n_partitions", [8, 10, 12]) 
     n_gen = trial.suggest_int("n_gen", 50, 200)
@@ -301,11 +305,15 @@ study = optuna.create_study(
     load_if_exists=True)
 
 # Ejecución de Optuna en NSGA-III
-study.optimize(objective, n_trials=100, n_jobs=4)
+study.optimize(objective_nsga3, n_trials=100, n_jobs=4)
 
 # MOEA/D
-def objective(trial):
-    # Direcciones de referencia para NSGA-III
+def objective_moead(trial):
+    """
+    Función objetivo para Optuna que entrena MOEA/D con un conjunto de hiperparámetros
+    propuestos y devuelve el hipervolumen medio obtenido en cinco instancias de prueba.
+    """
+    # Hiperparámetros elegidos
     n_partitions = trial.suggest_categorical("n_partitions", [8, 10, 12])
     ref_dirs = get_reference_directions("das-dennis", n_dim=3, n_partitions=n_partitions)
     
@@ -386,5 +394,4 @@ study = optuna.create_study(
     load_if_exists=True)
 
 # Ejecución de Optuna en MOEA/D
-study.optimize(objective, n_trials=100, n_jobs=4)
-
+study.optimize(objective_moead, n_trials=100, n_jobs=4)
